@@ -13,13 +13,13 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('review', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('book');
+            $table->foreignId('book_id')->constrained('books');
             $table->string('review_title', 120);
             $table->text('review_details')->nullable();
             $table->timestamp('review_date');
-            $table->unsignedTinyInteger('rating_start');
+            $table->enum('rating_start', [1, 2, 3, 4, 5]);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review');
+        Schema::dropIfExists('customer_reviews');
     }
 }

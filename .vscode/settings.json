@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "DB-BookwormApp",
+            "username": "haivan",
+            "password": "hackerviet1",
+            "database": "bookworm_app"
+        }
+    ]
+}

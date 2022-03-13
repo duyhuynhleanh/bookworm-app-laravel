@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\FortifyServiceProvider;
+
 return [
 
     /*
@@ -54,7 +56,10 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'spa_url' => env('SPA_URL', 'http://localhost'),
+
     'asset_url' => env('ASSET_URL', null),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +170,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Providers\FortifyServiceProvider::class,
         /*
          * Application Service Providers...
          */

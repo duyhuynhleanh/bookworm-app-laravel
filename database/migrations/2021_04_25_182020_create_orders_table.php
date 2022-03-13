@@ -13,11 +13,15 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id', false, true);
             $table->timestamp('order_date');
             $table->decimal('order_amount', 8, 2, true);
+            $table->foreignId('user_id')->constrained('users');
+            $table->timestamp('paidAt');
+            $table->timestamp('deliveredAt');
+            $table->boolean('isPaid')->default(false);
+            $table->boolean('isDelivered')->default(false);
         });
     }
 
@@ -28,6 +32,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 }
