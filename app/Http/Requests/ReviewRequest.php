@@ -26,7 +26,7 @@ class ReviewRequest extends FormRequest
         return [
             'review_title'=>'required|string',
             'review_details'=>'required|string',
-            'rating_start'=>'required'
+            'rating_start'=>'required|integer|between:0,5'
         ];
     }
 }

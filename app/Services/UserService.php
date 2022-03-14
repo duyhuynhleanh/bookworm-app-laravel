@@ -68,12 +68,4 @@ class UserService
         }
     }
 
-    // public function logoutUser($user)
-    // {
-    //     $user = $this->user->logoutUser($user);
-    //     $user->currentAccessToken()->delete();
-    //     return [
-    //         'message' => 'Logged out'
-    //     ];
-    // }
 }
