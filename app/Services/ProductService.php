@@ -18,7 +18,7 @@ class ProductService
     {
         $product = $this->product->getProductById($id);
         if ($product) {
-            return $product;
+            return response()->json($product);
         } else {
             return response()->json(['message' => 'Product not found'], 404);
         }

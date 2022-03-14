@@ -32,8 +32,8 @@ class ProductRepository implements ProductInterface
 
         return [
             "id"=> $product->id,
-            "category"=> $product->category->category_name,
-            "author"=> $product->author->author_name,
+            "category"=> $product->category,
+            "author"=> $product->author,
             "book_title"=> $product->book_title,
             "book_summary"=> $product->book_summary,
             "book_price"=> $product->book_price,
