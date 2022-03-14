@@ -95,4 +95,22 @@ class ProductService
             return response()->json(['message' => 'Products not found'], 404);
         }
     }
+
+    public function searchReviews($id, $request){
+        $reviews = $this->product->searchReviews($id, $request);
+        if ($reviews) {
+            return $reviews;
+        } else {
+            return response()->json(['message' => 'Reviews not found'], 404);
+        }
+    }
+
+    public function getRatingDetails($id){
+        $details = $this->product->getRatingDetails($id);
+        if ($details) {
+            return response()->json($details);
+        } else {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+    }
 }

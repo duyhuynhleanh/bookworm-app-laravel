@@ -220,4 +220,43 @@ class ProductRepository implements ProductInterface
 
         return $products;
     }
+
+    public function getRatingDetails($id){
+        $ratingDetails =DB::table("books")
+        ->join("reviews", "books.id", "=", "reviews.book_id")
+        ->select(
+            "reviews.rating_start",
+            DB::raw("count(cast(reviews.rating_start as int)) as quantity")
+        )
+        ->where("books.id", $id)
+        ->groupBy(["reviews.rating_start"])
+        ->get();
+        return $ratingDetails;
+    }
+
+    public function searchReviews($id, $request) {
+        $review_query=Review::query()->where('book_id', $id);
+        if($request->rating){
+            $review_query->where('rating_start', '=', $request->rating);
+        }
+        if($request->sortOrder && in_array($request->sortOrder,['asc', 'desc'])){
+            $sortOrder = $request->sortOrder;
+        } else {
+            $sortOrder = 'desc';
+        }
+
+        if($request->perPage){
+            $perPage = $request->perPage;
+        } else {
+            $perPage = 5;
+        }
+
+        if($request->paginate){
+            $reviews = $review_query->OrderBy('review_date', $sortOrder)->paginate($perPage);
+        } else {
+            $reviews = $review_query->OrderBy('review_date', $sortOrder)->get();
+        }
+
+        return $reviews;
+    }
 }

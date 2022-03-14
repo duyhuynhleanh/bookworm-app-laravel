@@ -12,4 +12,7 @@ interface ProductInterface
     public function getAllAuthors();
     public function createProductReview($fields);
     public function search($request);
+    public function getRatingDetails($id);
+    public function searchReviews($id, $request);
+
 }

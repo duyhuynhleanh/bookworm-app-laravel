@@ -51,3 +51,5 @@ Route::get('categories', [ProductController::class, 'getAllCategories']);
 Route::get('authors', [ProductController::class, 'getAllAuthors']);
 Route::post('products/{id}/reviews', [ProductController::class, 'createProductReview']);
 Route::get('products/{id}', [ProductController::class, 'getProductById']);
+Route::get('products/{id}/reviews', [ProductController::class, 'getRatingDetails']);
+Route::get('search/{id}/reviews', [ProductController::class, 'searchReviews']);

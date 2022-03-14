@@ -80,4 +80,13 @@ class ProductController extends Controller
     public function search(Request $request){
         return $this->product->search($request);
     }
+
+
+    public function getRatingDetails($id){
+        return $this->product->getRatingDetails($id);
+    }
+
+    public function searchReviews($id,Request $request){
+        return $this->product->searchReviews($id, $request);
+    }
 }
