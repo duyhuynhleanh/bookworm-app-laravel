@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
-use Illuminate\Support\Facades\Redis;
+
 
 class OrderController extends Controller
 {
@@ -22,13 +23,28 @@ class OrderController extends Controller
         $user_id = $request->user()->id;
         $totalPrice = $request->totalPrice;
         $orderItems = $request->orderItems;
-        $createdOrder = Order::create([
-            'order_date' => now(),
-            'order_amount' => $totalPrice,
-            'user_id' => $user_id,
-        ]);
-        $createdOrder->order_items()->createMany($orderItems);
-        return $createdOrder;
+
+        $error = [];
+
+        foreach( $orderItems as $item) {
+            if (Book::where('id', '=', $item['book_id'])->doesntExist()) {
+                $error[] = (object) [
+                    'message' => 'Item with the title ' . $item['book_title'] . ' not found'
+                ];
+            }
+        }
+
+        if(!$error) {
+            $createdOrder = Order::create([
+                'order_date' => now(),
+                'order_amount' => $totalPrice,
+                'user_id' => $user_id,
+            ]);
+            $createdOrder->order_items()->createMany($orderItems);
+            return $createdOrder;
+        } else {
+            return response()->json($error, 400);
+        }
     }
 
     public function getOrderById($id){
