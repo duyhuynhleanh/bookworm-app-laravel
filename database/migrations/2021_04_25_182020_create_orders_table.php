@@ -18,10 +18,6 @@ class CreateOrdersTable extends Migration
             $table->timestamp('order_date');
             $table->decimal('order_amount', 8, 2, true);
             $table->foreignId('user_id')->constrained('users');
-            $table->timestamp('paidAt');
-            $table->timestamp('deliveredAt');
-            $table->boolean('isPaid')->default(false);
-            $table->boolean('isDelivered')->default(false);
         });
     }
 

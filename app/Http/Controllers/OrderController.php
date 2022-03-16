@@ -25,13 +25,23 @@ class OrderController extends Controller
         $orderItems = $request->orderItems;
 
         $error = [];
+        $orderItemsAvai = [];
 
         foreach( $orderItems as $item) {
             if (Book::where('id', '=', $item['book_id'])->doesntExist()) {
                 $error[] = (object) [
                     'message' => 'Item with the title ' . $item['book_title'] . ' not found'
                 ];
+            } else {
+                array_push($orderItemsAvai, [
+                    'book_id'  =>$item['book_id'], 
+                    'quantity' =>$item['quantity'], 
+                    'price' =>$item['price'], 
+                    'book_title' =>$item['book_title'], 
+                    'book_cover_photo' =>$item['book_cover_photo']
+                ]);
             }
+
         }
 
         if(!$error) {
@@ -40,7 +50,7 @@ class OrderController extends Controller
                 'order_amount' => $totalPrice,
                 'user_id' => $user_id,
             ]);
-            $createdOrder->order_items()->createMany($orderItems);
+            $createdOrder->order_items()->createMany($orderItemsAvai);
             return $createdOrder;
         } else {
             return response()->json($error, 400);

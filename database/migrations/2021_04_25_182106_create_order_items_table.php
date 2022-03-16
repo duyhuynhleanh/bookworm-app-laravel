@@ -17,8 +17,7 @@ class CreateOrderItemsTable extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('book_id')->constrained('books');
-            $table->tinyText('book_title');
-            $table->decimal('book_price', 5, 2, true);
+            $table->string('book_title')->constrained('books');
             $table->string('book_cover_photo', 20)->nullable();
             $table->unsignedTinyInteger('quantity');
             $table->decimal('price', 5, 2, true);
